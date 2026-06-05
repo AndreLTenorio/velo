@@ -10,7 +10,8 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
   await expect(page.getByRole('heading')).toContainText('Consultar Pedido')
 
     // Act
-  await page.getByTestId('search-order-id').fill('VLO-CM7QV0')
+  await page.getByRole('textbox', { name: 'Número do Pedido' }).fill('VLO-CM7QV0')
+
   await page.getByTestId('search-order-button').click()
 
   // Assert
@@ -20,4 +21,4 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
   await expect(page.getByTestId('order-result-status')).toBeVisible()
   await expect(page.getByTestId('order-result-status')).toContainText('APROVADO')
 
-})
+})  
