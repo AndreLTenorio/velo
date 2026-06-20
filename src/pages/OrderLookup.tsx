@@ -139,13 +139,12 @@ const OrderLookup = () => {
                   <Package className="w-5 h-5 text-muted-foreground" />
                   <div>
                     <p className="text-sm text-muted-foreground">Pedido</p>
-                    <p className="font-mono font-medium" data-testid="order-result-id">
-                      {searchedOrder.id}
+                    <p className="font-mono font-medium">
+                      {searchedOrder.id}  
                     </p>
                   </div>
                 </div>
                 <div
-                  data-testid="order-result-status"
                   className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${
                     searchedOrder.status === 'APROVADO'
                       ? 'bg-green-100 text-green-700'
@@ -197,7 +196,7 @@ const OrderLookup = () => {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <p className="text-muted-foreground">Nome</p>
-                    <p className="font-medium">{searchedOrder.customer.name} {searchedOrder.customer.surname}</p>
+                    <p className="font-medium">{searchedOrder.id}{searchedOrder.customer.surname}</p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">Email</p>
