@@ -3,6 +3,10 @@ import { test, expect } from '@playwright/test'
 /// AAA - Arrange, Act, Assert
 
 test('deve consultar um pedido aprovado', async ({ page }) => {
+
+  // Test Data
+  const order = 'VLO-K5ABJO'
+
   //Arrange
   await page.goto('http://localhost:5173/')
   await expect(page.getByTestId('hero-section').getByRole('heading')).toContainText('Velô Sprint')
