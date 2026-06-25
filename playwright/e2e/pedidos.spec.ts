@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test'
 
+import { generateOrderCode } from '../support/helpers'
+
 /// AAA - Arrange, Act, Assert
 
 test('deve consultar um pedido aprovado', async ({ page }) => {
@@ -36,7 +38,7 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
 test('deve exibir mensagem quando o pedido não for encontrado', async ({ page }) => {
 
    // Test Data
-  const order = 'VLO-ABC123'
+  const order = generateOrderCode() // This will be generated but not used in the test
 
   await page.goto('http://localhost:5173/')
   await expect(page.getByTestId('hero-section').getByRole('heading')).toContainText('Velô Sprint')
