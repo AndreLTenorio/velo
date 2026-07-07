@@ -23,8 +23,8 @@ test('deve consultar um pedido aprovado', async ({ page }) => {
   // const orderCode = page.locator('/p[text()="Pedido"]/..//p[text()="VLO-K5ABJO"]')
   // await expect(orderCode).toBeVisible({timeout: 10_000})
 
-    const containerPedido = page.getByRole('paragraph')
-    .filter({ hasText: /^Pedido$/ })
+  //const containerPedido = page.getByRole('paragraph')
+    filter({ hasText: /^Pedido$/ })
     .locator('..') //Sobe para o elemento pai (a div que agrupa ambos)
 
   await expect(containerPedido).toContainText('VLO-K5ABJO', { timeout: 10_000 })
