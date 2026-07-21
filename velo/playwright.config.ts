@@ -16,12 +16,12 @@ const isCI = !!(globalThis as { process?: { env?: { CI?: string } } }).process?.
 export default defineConfig({
 
   // Tempo máximo para cada teste completo (30 segundos por padrão)
-timeout: 60000,
+  timeout: 60000,
 
-// Tempo máximo para assetions (toBevisible, toHaveText, etc.) (5 segundos por padrão)
-expect: {
-  timeout: 5000 // não vale a pena aumentar porque o teste pode ficar lento no tempo de exevução, vale a pena usar o timeout explicito.
-},
+  // Tempo máximo para assetions (toBevisible, toHaveText, etc.) (5 segundos por padrão)
+  expect: {
+    timeout: 5000 // não vale a pena aumentar porque o teste pode ficar lento no tempo de exevução, vale a pena usar o timeout explicito.
+  },
 
   testDir: './playwright/e2e',
   /* Run tests in files in parallel */
@@ -42,7 +42,7 @@ expect: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
 
-    
+
     // Tempo máximo para cada ação interativa como click(), fill() (10 segundos por padrão)
     // Quando o valor é 0, herda o timeout global do teste, ou seja, 60 segundos nesse caso.
     actionTimeout: 0,
