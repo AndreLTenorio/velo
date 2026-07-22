@@ -18,26 +18,36 @@ test.describe('Consulta de Pedidos', () => {
 
 
   test('deve consultar um pedido aprovado', async ({ page }) => {
+    
 
     // Test Data
-    const order = 'VLO-K5ABJO'
+    // const order = 'VLO-K5ABJO'
+
+    const order = {
+      number: 'VLO-K5ABJO',
+      color: 'Glacier Blue',
+      wheels: 'aero Wheels',
+      customer: {
+        name: 'André Luiz',
+        email: 'aluiztenorio@gmail.com',
+      },
+      payment: 'À Vista',
+  
+    }
 
 
     // Act
-    await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(order)
+    await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(order.number)
     await page.getByTestId('search-order-button').click()
 
     // Assert
 
-    // const orderCode = page.locator('/p[text()="Pedido"]/..//p[text()="VLO-K5ABJO"]')
-    // await expect(orderCode).toBeVisible({timeout: 10_000})
-
-    const resultadoPedido = page.getByTestId('order-result-' + order)
+    const resultadoPedido = page.getByTestId(`order-result-${order.number}`)
 
     await expect(resultadoPedido).toMatchAriaSnapshot(`
       - img
       - paragraph: Pedido
-      - paragraph: ${order}
+      - paragraph: ${order.number}
       - img
       - text: APROVADO
     `, { timeout: 10_000 })
@@ -47,16 +57,81 @@ test.describe('Consulta de Pedidos', () => {
       - paragraph: Modelo
       - paragraph: Velô Sprint
       - paragraph: Cor
-      - paragraph: Glacier Blue
+      - paragraph: ${order.color}
       - paragraph: Interior
       - paragraph: cream
       - paragraph: Rodas
-      - paragraph: aero Wheels
+      - paragraph: ${order.wheels}
       - heading "Dados do Cliente" [level=4]
       - paragraph: Nome
-      - paragraph: ${order}Luiz
+      - paragraph: ${order.customer.name}
       - paragraph: Email
-      - paragraph: aluiztenorio@gmail.com
+      - paragraph: ${order.customer.email}
+      - paragraph: Loja de Retirada
+      - paragraph
+      - paragraph: Data do Pedido
+      - paragraph: /\\d+\\/\\d+\\/\\d+/
+      - heading "Pagamento" [level=4]
+      - paragraph: ${order.payment}
+      - paragraph: /R\\$ \\d+\\.\\d+,\\d+/
+    `)
+
+  })
+
+  test('deve consultar um pedido reprovado', async ({ page }) => {
+    
+
+    // Test Data
+    // const order = 'VLO-DFDHE2'
+
+      const order = {
+       number: 'VLO-DFDHE2',
+       status: 'REPROVADO',
+       color: 'Midnight Black',
+       wheels: 'sport Wheels',
+       customer: {
+        name: 'Esteve Jobs',
+        email: 'jobs@apple.com',
+      },
+      payment: 'À Vista',
+  
+    }
+
+
+    // Act
+    await page.getByRole('textbox', { name: 'Número do Pedido' }).fill(order.number)
+    await page.getByTestId('search-order-button').click()
+
+    // Assert
+
+    // const orderCode = page.locator('/p[text()="Pedido"]/..//p[text()="VLO-K5ABJO"]')
+    // await expect(orderCode).toBeVisible({timeout: 10_000})
+
+    const resultadoPedido = page.getByTestId(`order-result-${order.number}`)
+
+    await expect(resultadoPedido).toMatchAriaSnapshot(`
+      - img
+      - paragraph: Pedido
+      - paragraph: ${order.number}
+      - img
+      - text: ${order.status}
+    `, { timeout: 10_000 })
+
+    await expect(resultadoPedido).toMatchAriaSnapshot(`
+      - img "Velô Sprint"
+      - paragraph: Modelo
+      - paragraph: Velô Sprint
+      - paragraph: Cor
+      - paragraph: Midnight Black
+      - paragraph: Interior
+      - paragraph: cream
+      - paragraph: Rodas
+      - paragraph: sport Wheels
+      - heading "Dados do Cliente" [level=4]
+      - paragraph: Nome
+      - paragraph: Esteve Jobs
+      - paragraph: Email
+      - paragraph: jobs@apple.com
       - paragraph: Loja de Retirada
       - paragraph
       - paragraph: Data do Pedido
